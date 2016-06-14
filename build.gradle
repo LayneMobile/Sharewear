@@ -19,14 +19,20 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:${appAndroidGradleVersion}"
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:${appBintrayGradlePlugin}"
-        classpath "com.github.dcendents:android-maven-gradle-plugin:${appAndroidMavenGradleVersion}"
+        classpath "com.android.tools.build:gradle:${appGradleAndroidVersion}"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:${appGradleAndroidMavenVersion}"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:${appGradleBintrayPluginVersion}"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:${appGradleBuildInfoExtractorVersion}"
     }
 }
 
 ext {
-    LICENSES = ["Apache-2.0"]
+    minSdkVersion = appMinSdkVersion as int
+    compileSdkVersion = appCompileSdkVersion as int
+    buildToolsVersion = appBuildToolsVersion
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    LICENSES = ['Apache-2.0']
+    LABELS = ['android', 'androidwear', 'sharewear']
 }
 
 subprojects {
@@ -50,3 +56,6 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+apply plugin: 'android-reporting'
+

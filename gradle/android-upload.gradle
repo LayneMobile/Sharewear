@@ -14,25 +14,26 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
-
-version = VERSION_NAME
-group = GROUP
+// Create javadoc/sources
+apply from: "${rootDir}/gradle/android-artifacts.gradle"
 
 install {
     repositories.mavenInstaller {
         pom {
             project {
-                packaging 'aar'
-                name POM_DESCRIPTION
+                name POM_NAME
+                description POM_DESCRIPTION
+                packaging POM_PACKAGING
                 url POM_URL
+
                 licenses {
                     license {
                         name POM_LICENSE_NAME
                         url POM_LICENSE_URL
+                        distribution POM_LICENSE_DIST
                     }
                 }
+
                 developers {
                     developer {
                         id POM_DEVELOPER_ID
@@ -40,6 +41,7 @@ install {
                         email POM_DEVELOPER_EMAIL
                     }
                 }
+
                 scm {
                     connection POM_SCM_CONNECTION
                     developerConnection POM_SCM_DEV_CONNECTION
@@ -50,28 +52,29 @@ install {
     }
 }
 
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
+// Configure artifactory (for publishing snapshots)
+//
+// Based on NebulaOJOPublishingPlugin (from nebula-bintray-plugin)
+artifactory {
+    contextUrl = 'https://oss.jfrog.org'
+
+    publish {
+        repository {
+            repoKey = 'oss-snapshot-local'
+
+            if (project.hasProperty('bintrayUser')) {
+                username = project.property('bintrayUser')
+                password = project.property('bintrayKey')
+            }
+        }
+
+        defaults {
+            publishConfigs('archives')
+        }
+    }
 }
 
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    failOnError false
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-    encoding = 'UTF-8'
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
+// Configure gradle-bintray-plugin (for publishing releases)
 bintray {
     configurations = ['archives']
 
@@ -81,10 +84,11 @@ bintray {
         repo = BINTRAY_REPO
         name = POM_NAME
         userOrg = BINTRAY_ORG
-        desc = POM_DESCRIPTION
-        websiteUrl = POM_URL
-        vcsUrl = POM_SCM_URL
         licenses = rootProject.ext.LICENSES
+        labels = rootProject.ext.LABELS
+        websiteUrl = POM_URL
+        issueTrackerUrl = POM_ISSUE_TRACKER_URL
+        vcsUrl = POM_SCM_URL
     }
 }
 
