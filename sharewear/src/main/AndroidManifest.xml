@@ -1,0 +1,53 @@
+<!--
+  ~ Copyright 2016 Layne Mobile, LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="sharewear">
+
+    <application>
+
+        <!-- Services -->
+
+        <service
+            android:name=".WearService"
+            android:exported="true"
+            tools:ignore="AndroidLintExportedService">
+            <!-- This service must be exported, but Android provides security for starting it -->
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".services.WearMessageService"
+            android:exported="false" />
+
+        <service
+            android:name=".services.WearDataService"
+            android:exported="false" />
+
+        <service
+            android:name=".services.WearRunnerService"
+            android:exported="false" />
+
+        <service
+            android:name=".services.RunnerService"
+            android:exported="false" />
+
+    </application>
+
+</manifest>
