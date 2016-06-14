@@ -8,6 +8,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.laynemobile:sharewear:1.0.0'
+    compile 'com.laynemobile.sharewear:sharewear:1.0.0'
 }
 ```
