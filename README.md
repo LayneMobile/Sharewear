@@ -4,7 +4,7 @@ Utility Library for Android Wear
 ## Download
 ```groovy
 dependencies {
-    compile 'com.laynemobile.sharewear:sharewear:1.0.1'
+    compile 'com.laynemobile.sharewear:sharewear:1.0.2'
 }
 ```
 
