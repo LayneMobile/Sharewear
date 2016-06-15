@@ -16,6 +16,15 @@
 
 apply from: "${rootDir}/gradle/android-library.gradle"
 
+android {
+    buildTypes {
+        release {
+            minifyEnabled false
+            consumerProguardFiles 'consumer-proguard-rules.pro'
+        }
+    }
+}
+
 dependencies {
     compile "com.google.android.gms:play-services-wearable:${appGooglePlayServicesVersion}"
     compile "com.android.support:support-annotations:${appAndroidSupportVersion}"
