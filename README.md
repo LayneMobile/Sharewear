@@ -7,6 +7,7 @@ dependencies {
     compile 'com.laynemobile.sharewear:sharewear:1.0.2'
 }
 ```
+[ ![Download](https://api.bintray.com/packages/laynemobile/android/Sharewear/images/download.svg) ](https://bintray.com/laynemobile/android/Sharewear/_latestVersion)
 
 ## Build
 
