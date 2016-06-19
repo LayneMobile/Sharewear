@@ -19,3 +19,4 @@ include ':sharewear',
         ':sample:app',
         ':sample:wear'
 
+rootProject.name = 'com.laynemobile.sharewear'
