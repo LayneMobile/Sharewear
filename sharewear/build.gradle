@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-apply from: "${rootDir}/gradle/android-library.gradle"
+apply plugin: 'com.laynemobile.gradle.android-library'
 
 android {
     buildTypes {

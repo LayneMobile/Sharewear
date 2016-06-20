@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath "com.android.tools.build:gradle:${appGradleAndroidVersion}"
-        classpath "com.github.dcendents:android-maven-gradle-plugin:${appGradleAndroidMavenVersion}"
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:${appGradleBintrayPluginVersion}"
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:${appGradleBuildInfoExtractorVersion}"
-    }
-}
 
 ext {
     minSdkVersion = appMinSdkVersion as int
@@ -35,12 +24,18 @@ ext {
     LABELS = ['android', 'androidwear', 'sharewear']
 }
 
-def isReleaseBuild = gradle.startParameter.taskNames.contains('bintrayUpload')
-allprojects {
-    group = GROUP
-    version = isReleaseBuild ? VERSION_NAME : "$VERSION_NAME-SNAPSHOT"
-    logger.info("Project ${it.name} using version=${it.version}")
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://oss.jfrog.org/oss-snapshot-local' }
+    }
+    dependencies {
+        classpath "com.laynemobile.gradle:plugins:1.0.0-SNAPSHOT"
+        classpath "com.laynemobile.gradle:android-plugins:1.0.0-SNAPSHOT"
+    }
 }
+
+apply plugin: 'com.laynemobile.gradle-parent'
 
 subprojects {
     repositories {
