@@ -35,6 +35,13 @@ ext {
     LABELS = ['android', 'androidwear', 'sharewear']
 }
 
+def isReleaseBuild = gradle.startParameter.taskNames.contains('bintrayUpload')
+allprojects {
+    group = GROUP
+    version = isReleaseBuild ? VERSION_NAME : "$VERSION_NAME-SNAPSHOT"
+    logger.info("Project ${it.name} using version=${it.version}")
+}
+
 subprojects {
     repositories {
         jcenter()
