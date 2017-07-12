@@ -55,7 +55,11 @@ public class ServiceRunners<T extends ServiceRunners.Runner> {
                 return runner;
             }
         }
-        return (T) intent.<IntentRunner>getParcelableExtra(SharewearIntent.EXTRA_RUNNER);
+        return getIntentRunner(intent);
+    }
+
+    private static <T extends IntentRunner> T getIntentRunner(Intent intent) {
+        return intent.getParcelableExtra(SharewearIntent.EXTRA_RUNNER);
     }
 
     /**

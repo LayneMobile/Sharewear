@@ -15,22 +15,13 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="sharewear">
 
     <application>
 
         <!-- Services -->
 
-        <service
-            android:name=".WearService"
-            android:exported="true"
-            tools:ignore="AndroidLintExportedService">
-            <!-- This service must be exported, but Android provides security for starting it -->
-            <intent-filter>
-                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
-            </intent-filter>
-        </service>
+        <service android:name=".WearService" />
 
         <service
             android:name=".services.WearMessageService"
